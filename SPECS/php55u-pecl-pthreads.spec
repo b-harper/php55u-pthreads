@@ -107,7 +107,7 @@ make -C %{pecl_name}-%{version} \
 install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Install XML package description
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{pecl_name}.xml
 
 # Documentation
 cd %{pecl_name}-%{version}
@@ -118,7 +118,7 @@ done
 
 
 %post
-%{pecl_install} %{pecl_xmldir}/%{name}.xml >/dev/null || :
+%{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
 
 
 %postun
@@ -146,7 +146,7 @@ REPORT_EXIT_STATUS=1 \
 %files
 %{?_licensedir:%license %{pecl_name}-%{version}/LICENSE}
 %doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%{pecl_xmldir}/%{pecl_name}.xml
 
 %config(noreplace) %{php_ztsinidir}/%{ini_name}
 %{php_ztsextdir}/%{pecl_name}.so
@@ -156,6 +156,7 @@ REPORT_EXIT_STATUS=1 \
 * Thu Mar 17 2016 Carl George <carl.george@rackspace.com> - 2.0.10-3.ius
 - Clean up provides
 - Clean up filters
+- Install package.xml as %%{pecl_name}.xml, not %%{name}.xml
 
 * Tue Jun 02 2015 Ben Harper <ben.harper@rackspace.com> - 2.0.10-3.ius
 - porting from php56u-pecl-pthreads
