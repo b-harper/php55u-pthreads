@@ -53,11 +53,11 @@ Provides:     %{php_base}-pecl(%{pecl_name})%{?_isa} = %{version}
 # conflict with the stock name
 Conflicts:    php-pecl-%{pecl_name} < %{version}
 
-%if 0%{?fedora} < 20 && 0%{?rhel} < 7
-# Filter shared private
-%{?filter_provides_in: %filter_provides_in %{_libdir}/.*\.so$}
+# RPM 4.8
+%{?filter_provides_in: %filter_provides_in %{php_extdir}/.*\.so$}
 %{?filter_setup}
-%endif
+# RPM 4.9
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}%{php_extdir}/.*\\.so$
 
 
 %description
@@ -155,6 +155,7 @@ REPORT_EXIT_STATUS=1 \
 %changelog
 * Thu Mar 17 2016 Carl George <carl.george@rackspace.com> - 2.0.10-3.ius
 - Clean up provides
+- Clean up filters
 
 * Tue Jun 02 2015 Ben Harper <ben.harper@rackspace.com> - 2.0.10-3.ius
 - porting from php56u-pecl-pthreads
